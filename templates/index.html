@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>COVID Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 50px;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            background-color: #e6e6e6;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        #image-preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #image-preview img {
+            max-width: 300px;
+            max-height: 300px;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('image-preview');
+                output.innerHTML = '<img src="' + reader.result + '">';
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</head>
+<body>
+    <h1>Covid Detection</h1>
+    <form action="/classify" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" onchange="previewImage(event)">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    <div id="image-preview"></div>
+    <div id="result">
+        {% if prediction %}
+            {% if prediction == "Covid" %}
+                <h2 style="color: red;">The image is Covid positive.</h2>
+            {% else %}
+                <h2 style="color: green;">The image is normal.</h2>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

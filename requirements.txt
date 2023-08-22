@@ -1,0 +1,4 @@
+Flask==2.3.2
+tensorflow==2.6.0
+python==3.8.10
+gdown==4.0.2
