@@ -5,6 +5,15 @@ import numpy as np
 from tensorflow import keras
 from tensorflow.keras.models import load_model
 
+#gdown code from here( was a seperate script before)
+import gdown
+
+file_id = "https://drive.google.com/file/d/1-Ba3UlzLKhtOGuffVbxVPBiymaPd8hYH/view?usp=sharing"
+output_file = "reuben_model_innception.h5"
+
+gdown.download(file_id, output_file, quiet=False, fuzzy=True)
+#till here
+
 app = Flask(__name__)
 model = keras.models.load_model('reuben_model_innception.h5')
 
